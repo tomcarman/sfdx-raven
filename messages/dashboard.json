@@ -1,0 +1,6 @@
+{
+    "commandDescription": "Mass update the Running User for Dashboards",
+    "fromUserFlagDescription": "The username of the current Dashboard running user eg. tom.carman@ecorp.com",
+    "toUserFlagDescription": "The username of the target Dashboard running user eg. james.moriarty@ecorp.com"
+  }
+  
