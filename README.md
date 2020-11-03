@@ -2,4 +2,4 @@
 SFDX Plugin
 =======
 
-Salesforce Tools by Tom Carman
+Salesforce Tools by Tom
