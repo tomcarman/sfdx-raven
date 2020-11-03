@@ -260,7 +260,8 @@ If you choose no, the patched files will still be in a folder called /temp which
 
 
     /* Deploy the patched Dashboard metadata back to the org */
-
+    
+    this.ux.log('\n');
     cli.action.start(`${emoji.get('arrow_double_up')} Deploying the Dashboard metadata`)
     const deployPath = path.join(packageDir, 'unpackaged');
     const deployCommand = `sfdx force:mdapi:deploy -d ${deployPath} -u ${this.org.getUsername()}`;
