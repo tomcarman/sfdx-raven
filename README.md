@@ -33,14 +33,12 @@ USAGE
   $ sfdx raven:utils:dashboarduser:update
 
 OPTIONS
-  -u, --targetusername                             sets a username or alias for the target org. overrides the default target org.
-  -f, --from                                       the username of the user which is currently the 'running user' of the Dashboards 
-                                                   eg. 'tom.carman@ecorp.com'
-  -t, --to.                                        the username of the user which you want to make the new 'running user' of the Dashboards 
-                                                   eg. 'james.moriarty@ecorp.com'
-  -, --help                                        show CLI help
-  --json                                           format output as json
-  --loglevel=(trace|debug|info|warn|error|fatal)   logging level for this command invocation
+  -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
+  -f, --from              the username of the user which is currently the 'running user' of the Dashboards eg. 'tom.carman@ecorp.com'
+  -t, --to.               the username of the user which you want to make the new 'running user' of the Dashboards eg. 'james.moriarty@ecorp.com'
+  -, --help               show CLI help
+  --json                  format output as json
+  --loglevel              logging level for this command invocation
 
 EXAMPLES
   $ sfdx raven:utils:dashboarduser:update -u ecorp-dev --from tom.carman@ecorp.com --to james.moriarty@ecorp.com`
