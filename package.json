@@ -1,9 +1,11 @@
 {
-  "name": "raven",
+  "name": "@tomcarman/raven",
   "description": "Salesforce Tools by Tom Carman",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "@tomcarman",
-  "bugs": "https://github.com/tomcarman/raven/issues",
+  "bugs": {
+    "url": "https://github.com/tomcarman/raven/issues"
+  },
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -56,7 +58,10 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "tomcarman/raven",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomcarman/raven.git"
+  },
   "scripts": {
     "lint": "tslint --project . --config tslint.json --format stylish",
     "postpack": "rm -f oclif.manifest.json",
@@ -64,5 +69,9 @@
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
+  },
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
   }
 }

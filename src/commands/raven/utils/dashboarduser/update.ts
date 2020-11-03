@@ -1,5 +1,4 @@
-import { flags, SfdxCommand, UX } from '@salesforce/command';
-import { Messages, SfdxError } from '@salesforce/core';
+import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
 import cli from 'cli-ux';
 import * as fs from 'fs';
@@ -12,13 +11,11 @@ const extract = require('extract-zip')
 const exec = util.promisify(child_process.exec);
 const emoji = require('node-emoji');
 
-Messages.importMessagesDirectory(__dirname);
-const messages = Messages.loadMessages('raven', 'dashboard');
 
 export default class Updates extends SfdxCommand {
 
   // Load messages
-  public static description = messages.getMessage('commandDescription');
+  public static description = 'Mass update the Running User for Dashboards';
 
   // Example usage
   public static examples = [
@@ -27,8 +24,8 @@ export default class Updates extends SfdxCommand {
 
   // Define flags
   protected static flagsConfig = {
-    from: flags.string({char: 'f', description: messages.getMessage('fromUserFlagDescription')}),
-    to: flags.string({char: 't', description: messages.getMessage('toUserFlagDescription')})
+    from: flags.string({char: 'f', description: 'The username of the current Dashboard running user eg. tom.carman@ecorp.com'}),
+    to: flags.string({char: 't', description: 'The username of the target Dashboard running user eg. james.moriarty@ecorp.com'})
   };
 
   // Set some parameters
@@ -54,6 +51,11 @@ export default class Updates extends SfdxCommand {
         records: Record[];
     }
 
+    interface Record {
+        attributes: object;
+        Id: string;
+    }
+
     // Get salesforce connection
     const conn = this.org.getConnection(); // this.org is guaranteed because requiresUsername=true, as opposed to supportsUsername
 
@@ -64,7 +66,7 @@ export default class Updates extends SfdxCommand {
     // Check if sandbox
     const sandboxQuery = 'SELECT IsSandbox FROM Organization LIMIT 1';
     const sandboxResult = await conn.query<QueryResult>(sandboxQuery);
-    const isSandbox = sandboxResult.records[0].IsSandbox;
+    const isSandbox = sandboxResult.records[0]['IsSandbox'];
 
     // Retrieve the users from the org    
     this.ux.log('\n');
@@ -105,7 +107,7 @@ export default class Updates extends SfdxCommand {
     }
 
     const fromUserId = userIdMap.get('fromUserId').Id;
-    const toUserId = userIdMap.get('toUserId').Id;
+    // const toUserId = userIdMap.get('toUserId').Id;
     const fromUserRealName = `${userIdMap.get('fromUserId').FirstName} ${userIdMap.get('fromUserId').LastName}`
     const toUserRealName = `${userIdMap.get('toUserId').FirstName} ${userIdMap.get('toUserId').LastName}`
 
@@ -163,7 +165,7 @@ export default class Updates extends SfdxCommand {
 
     // Add the Dashboards that were retrieved
     for(let dashboard of dashboards.records) {
-        packageFile.write(`\n<members>${dashboard.Folder.DeveloperName}/${dashboard.DeveloperName}</members>`);
+        packageFile.write(`\n<members>${dashboard['Folder'].DeveloperName}/${dashboard['DeveloperName']}</members>`);
     }
 
     packageFile.write('\n<name>Dashboard</name>');
@@ -181,7 +183,7 @@ export default class Updates extends SfdxCommand {
     const retrieveCommand = `sfdx force:mdapi:retrieve -k ${packageDir}/${packageManifest} -u ${this.org.getUsername()} -r ${packageDir}`;
 
     try {
-        const retrieveResponse = await exec(retrieveCommand)
+        await exec(retrieveCommand)
     } catch (err) {
         this.ux.log(err);
         return;
@@ -208,6 +210,7 @@ export default class Updates extends SfdxCommand {
 
     // Walk through the files (using async iterator)
     async function* walk(packageDir) {
+        // @ts-ignore
         for await (const d of await fs.promises.opendir(packageDir)) {
             const entry = path.join(packageDir, d.name);
             if (d.isDirectory()) {
@@ -264,7 +267,7 @@ If you choose no, the patched files will still be in a folder called /temp which
     const deployCommand = `sfdx force:mdapi:deploy -d ${deployPath} -u ${this.org.getUsername()}`;
 
     try {
-        const deployResponse = await exec(deployCommand)
+        await exec(deployCommand);
     } catch (err) {
         cli.action.stop();
         this.ux.log(err);
@@ -279,6 +282,7 @@ If you choose no, the patched files will still be in a folder called /temp which
     cli.action.start(`${emoji.get('sparkles')} Cleaning up`)
     
     try {
+        // @ts-ignore
         fs.rmdirSync(packageDir, { recursive: true });
     } catch (err) {
         this.ux.log(err);
