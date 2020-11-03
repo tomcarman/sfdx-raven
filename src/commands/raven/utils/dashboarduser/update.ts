@@ -19,7 +19,7 @@ export default class Updates extends SfdxCommand {
 
   // Example usage
   public static examples = [
-  `$ sfdx raven:utils:dashboarduser:update -u jhi_devtom --from tom.carman@janushenderson.com.devtom --to william.watchman@jhi.crm.devtom`
+  `$ sfdx raven:utils:dashboarduser:update -u ecorp-dev --from tom.carman@ecorp.com --to james.moriarty@ecorp.com`
   ];
 
   // Define flags
