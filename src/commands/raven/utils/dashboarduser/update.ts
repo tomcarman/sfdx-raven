@@ -144,9 +144,8 @@ export default class Updates extends SfdxCommand {
 
 
     /* Build the package.xml*/
-
-    cli.action.start(`${emoji.get('card_index_dividers')}  Generating a list of Dashbords owned by ${fromUserRealName}`);
-    this.ux.log('\nBuilding package manifest...');
+    this.ux.log('\n');
+    cli.action.start(`${emoji.get('card_index_dividers')}  Generating a package.xml for the Dashbords owned by ${fromUserRealName}`);
 
     // Define name of temporary folder and package.xml
     let packageDir = path.resolve('./temp');
