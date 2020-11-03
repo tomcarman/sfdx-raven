@@ -1,7 +1,5 @@
-# raven
+# SFDX Raven
 SFDX Plugin
 =======
-raven
-=====
 
 Salesforce Tools by Tom Carman
