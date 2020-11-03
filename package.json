@@ -1,10 +1,13 @@
 {
-  "name": "@tomcarman/raven",
-  "description": "Salesforce Tools by Tom Carman",
+  "name": "sfdx-raven",
+  "description": "SFDX Tools by Tom Carman",
   "version": "0.0.1",
   "author": "@tomcarman",
   "bugs": {
-    "url": "https://github.com/tomcarman/raven/issues"
+    "url": "https://github.com/tomcarman/sfdx-raven/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@oclif/command": "^1",
@@ -41,7 +44,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/tomcarman/raven",
+  "homepage": "https://github.com/tomcarman/sfdx-raven",
   "keywords": [
     "sfdx-plugin"
   ],
@@ -60,7 +63,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tomcarman/raven.git"
+    "url": "git+https://github.com/tomcarman/sfdx-raven.git"
   },
   "scripts": {
     "lint": "tslint --project . --config tslint.json --format stylish",
@@ -74,4 +77,5 @@
   "directories": {
     "lib": "lib"
   }
+
 }
