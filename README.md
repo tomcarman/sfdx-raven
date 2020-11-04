@@ -1,6 +1,8 @@
 # sfdx-raven
 
-A plugin for the Salesforce CLI built by Tom Carman. I plan to add to this over time.
+A plugin for the Salesforce CLI built by Tom Carman.
+
+At the moment there is only a single command, but a few more are under development, which I plan to add over time.
 
 ## Setup
 
