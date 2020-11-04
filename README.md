@@ -36,6 +36,8 @@ Note: You'll be prompted that this is not officially code-signed by Salesforce -
 ## Commands
 
 - [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate)
+- [sfdx raven:info:fields](#sfdx-raveninfofields)
+- [sfdx raven:info:recordtypes](#sfdx-raveninforecordtypes)
 
 
 ## sfdx raven:utils:dashboarduser:update
