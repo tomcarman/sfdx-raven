@@ -56,10 +56,68 @@ OPTIONS
   -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
   -f, --from              the username of the user which is currently the 'running user' of the Dashboards eg. 'tom.carman@ecorp.com'
   -t, --to.               the username of the user which you want to make the new 'running user' of the Dashboards eg. 'james.moriarty@ecorp.com'
-  -, --help               show CLI help
+  -h, --help               show CLI help
   --json                  format output as json
   --loglevel              logging level for this command invocation
 
-EXAMPLES
+EXAMPLE
   $ sfdx raven:utils:dashboarduser:update -u ecorp-dev --from tom.carman@ecorp.com --to james.moriarty@ecorp.com`
+```
+
+## sfdx raven:info:fields
+
+Returns a list of fields (Label, DeveloperName, Data Type) for a given SObject
+
+```
+USAGE
+  $ sfdx raven:info:fields
+
+OPTIONS
+  -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
+  -o, --object            the username of the user which is currently the 'running user' of the Dashboards eg. 'tom.carman@ecorp.com'
+  -h, --help              show CLI help
+  --json                  format output as json
+  --loglevel              logging level for this command invocation
+
+EXAMPLE
+  $ sfdx raven:info:fields -u ecorp-dev -o Account
+
+OUTPUT
+
+LABEL                 QUALIFIED API NAME    DATA TYPE
+────────────────────  ────────────────────  ──────────────────────────
+Account Number        AccountNumber         Text(40)
+Account Source        AccountSource         Picklist
+Annual Revenue        AnnualRevenue         Currency(18, 0)
+Billing Address       BillingAddress        Address
+Created By            CreatedById           Lookup(User)
+...
+```
+
+## sfdx raven:info:recordtypes
+
+Returns a list of RecordTypes (Label, DeveloperName, Id) for a given SObject
+
+```
+USAGE
+  $ sfdx raven:info:recordtypes
+
+OPTIONS
+  -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
+  -o, --object            the username of the user which is currently the 'running user' of the Dashboards eg. 'tom.carman@ecorp.com'
+  -h, --help              show CLI help
+  --json                  format output as json
+  --loglevel              logging level for this command invocation
+
+EXAMPLE
+  $ sfdx raven:info:recordtypes -u ecorp-dev -o Account
+
+OUTPUT
+
+NAME                 DEVELOPER NAME       ID
+───────────────────  ───────────────────  ──────────────────
+Customer             Customer             0121U000000uAAAXXX
+Organistation        Organisation         0121U000000uBBBXXX
+Primary Supplier     Primary_Suppier      0121U000000uCCCXXX
+...
 ```
