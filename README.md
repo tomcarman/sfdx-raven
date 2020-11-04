@@ -2,7 +2,7 @@
 
 A plugin for the Salesforce CLI built by Tom Carman.
 
-At the moment there is only a single command, but a few more are under development, which I plan to add over time.
+At the moment there is only a few commands, but I plan to add more over time.
 
 ## Setup
 
