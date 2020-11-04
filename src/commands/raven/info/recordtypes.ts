@@ -2,15 +2,14 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
 import { cli } from 'cli-ux';
 
+export default class Recordtypes extends SfdxCommand {
 
-export default class Fields extends SfdxCommand {
-
-  public static description = 'Gets a list of field names, labels and type for a given object';
+  public static description = 'Gets a list of RecordTypes for a given object';
 
   public static examples = [
   `$ sfdx raven:info:fields -o Account`
   ];
-  
+
   protected static requiresUsername = true;
   protected static supportsDevhubUsername = true;
   protected static requiresProject = false;
@@ -18,11 +17,10 @@ export default class Fields extends SfdxCommand {
   protected static flagsConfig = {
     object: flags.string({
         char: 'o', 
-        description: 'The object to get fields for',
+        description: 'The object to get RecordTypes for',
         required: true
     })
   };
-
 
   public async run(): Promise<AnyJson> {
 
@@ -40,18 +38,18 @@ export default class Fields extends SfdxCommand {
         Id: string;
     }
 
-    // Connect to org and SOQL for field metadata
+    // Connect to org and SOQL for recordtype metadata
     const conn = this.org.getConnection();
-    const query = `SELECT Label, QualifiedApiName, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = '${this.flags.object}' ORDER BY QualifiedApiName`;
+    const query = `SELECT Name, DeveloperName, Id FROM RecordType WHERE SObjectType = '${this.flags.object}'`;
     const result = <QueryResult>await conn.query(query);
 
     cli.action.stop();
 
-    // Return as table
-    this.ux.table(result.records, ['Label', 'QualifiedApiName', 'DataType']);
+    // Return table of fields
+    this.ux.table(result.records, ['Name', 'DeveloperName', 'Id']);
 
     // Return url
-    this.ux.log(`\n${conn.instanceUrl}/lightning/setup/ObjectManager/${this.flags.object}/FieldsAndRelationships/view`);
+    this.ux.log(`\n${conn.instanceUrl}/lightning/setup/ObjectManager/${this.flags.object}/RecordTypes/view`);
 
     // Return an object to be displayed with --json
     const outputString = JSON.stringify(result);
