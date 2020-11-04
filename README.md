@@ -42,6 +42,12 @@ Note: You'll be prompted that this is not officially code-signed by Salesforce -
 
 Updates the "Running User" of Dashboards from a given user, to an alternate given user. Useful for mass-updating Dashboards when a user is deactivated.
 
+You will have the following additional options when running -
+
+* A list of Dashboards that will be affected as part of the script will be displayed, with the option to abort if desired.
+* The final step to deploy the changes back to the org can be skipped when prompted, allowing for the manual deploy of the patched metadata files - this might be desirable when running against Production environments with strict deployment practices, or if you maintain Dashboard metadata in source control and want to commit the files.
+
+
 ```
 USAGE
   $ sfdx raven:utils:dashboarduser:update
