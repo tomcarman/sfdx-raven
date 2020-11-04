@@ -18,10 +18,22 @@ Note: You'll be prompted that this is not officially code-signed by Salesforce -
 4. Link the plugin: `sfdx plugins:link .`
 
 
+## Compatibility
+* **macOS**
+  * Plugin has been built on macOS and will always run on macOS
+  
+* **Windows**
+  * Work on Windows 10 1803+ (this is that latest build I have access to)
+  * Known Issues:
+    * Emoji will not work in cmd.exe / powershell - so you may seem some funny characters when running the plugin - this can be ignored. Emoji may work in Windows Terminal, but I have not managed to test yet
+      
+* **Linux**
+  * Only tested on an Ubuntu installation on [WSL](https://docs.microsoft.com/en-us/windows/wsl/about), but should work.
+
+
 ## Commands
 
 - [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate)
-
 
 
 ## sfdx raven:utils:dashboarduser:update
