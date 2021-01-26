@@ -135,7 +135,6 @@ OUTPUT
 
 ❯ Link to deployment page in Salesforce:
 https://wise-hawk-22uzds-dev-ed.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0Af4K00000BHVuASAX
-...
 ```
 
 ## sfdx raven:utils:dashboarduser:update
