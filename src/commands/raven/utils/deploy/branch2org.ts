@@ -1,7 +1,7 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
 import { cli } from 'cli-ux';
-import simpleGit, { SimpleGit, StatusResult } from 'simple-git';
+import simpleGit from 'simple-git';
 import util = require('util');
 import child_process = require('child_process');
 
@@ -36,7 +36,7 @@ export default class Branch2Org extends SfdxCommand {
     this.ux.log('\n')
     cli.action.start('Cloning repo & checking out \'' + this.flags.branch+'\'');
     
-    const git: SimpleGit = simpleGit();
+    const git = simpleGit();
 
     try {
         await git.clone(this.flags.repository, '.', ['-b', this.flags.branch]);
