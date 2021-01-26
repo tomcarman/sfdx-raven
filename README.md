@@ -102,7 +102,7 @@ Primary Supplier     Primary_Suppier      0121U000000uCCCXXX
 
 ## sfdx raven:utils:deploy:branch2org
 
-Deploys a git branch to an org. Assumes you have git installed the neccessary access to the repo you are trying to clone (eg. you can run `git clone ...`).
+Deploys a git branch to an org. Assumes you have git installed the neccessary access to the repo you are trying to clone (eg. you can run `git clone ...`), and that the branch is in a source-format sfdx project structure.
 
 
 ```
