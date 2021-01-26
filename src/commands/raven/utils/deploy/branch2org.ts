@@ -45,6 +45,7 @@ export default class Branch2Org extends SfdxCommand {
     } catch (e) { 
         cli.action.stop('Error');
         this.ux.log(e);
+        return;
 
     }
 
@@ -61,6 +62,7 @@ export default class Branch2Org extends SfdxCommand {
     } catch (e) {
         cli.action.stop('Error');
         this.ux.log(e);
+        return;
     }
 
 
@@ -83,6 +85,7 @@ export default class Branch2Org extends SfdxCommand {
     } catch (e) {
         cli.action.stop('Error');
         this.ux.log(e);
+        return;
     }
 
 
