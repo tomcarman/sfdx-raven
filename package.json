@@ -1,7 +1,7 @@
 {
   "name": "sfdx-raven",
   "description": "SFDX Tools by Tom Carman",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "@tomcarman",
   "bugs": {
     "url": "https://github.com/tomcarman/sfdx-raven/issues"
