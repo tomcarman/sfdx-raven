@@ -35,36 +35,12 @@ Note: You'll be prompted that this is not officially code-signed by Salesforce -
 
 ## Commands
 
-- [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate)
 - [sfdx raven:info:fields](#sfdx-raveninfofields)
 - [sfdx raven:info:recordtypes](#sfdx-raveninforecordtypes)
+- [sfdx raven:utils:deploy:branch2org](#sfdx-ravenutilsdeploybranch2org)
+- [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate)
 
 
-## sfdx raven:utils:dashboarduser:update
-
-Updates the "Running User" of Dashboards from a given user, to an alternate given user. Useful for mass-updating Dashboards when a user is deactivated.
-
-You will have the following additional options when running -
-
-* A list of Dashboards that will be affected as part of the script will be displayed, with the option to abort if desired.
-* The final step to deploy the changes back to the org can be skipped when prompted, allowing for the manual deploy of the patched metadata files - this might be desirable when running against Production environments with strict deployment practices, or if you maintain Dashboard metadata in source control and want to commit the files.
-
-
-```
-USAGE
-  $ sfdx raven:utils:dashboarduser:update
-
-OPTIONS
-  -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
-  -f, --from              the username of the user which is currently the 'running user' of the Dashboards eg. 'tom.carman@ecorp.com'
-  -t, --to.               the username of the user which you want to make the new 'running user' of the Dashboards eg. 'james.moriarty@ecorp.com'
-  -h, --help               show CLI help
-  --json                  format output as json
-  --loglevel              logging level for this command invocation
-
-EXAMPLE
-  $ sfdx raven:utils:dashboarduser:update -u ecorp-dev --from tom.carman@ecorp.com --to james.moriarty@ecorp.com`
-```
 
 ## sfdx raven:info:fields
 
@@ -122,4 +98,68 @@ Customer             Customer             0121U000000uAAAXXX
 Organistation        Organisation         0121U000000uBBBXXX
 Primary Supplier     Primary_Suppier      0121U000000uCCCXXX
 ...
+```
+
+## sfdx raven:utils:deploy:branch2org
+
+Deploys a git branch to an org. Assumes you have git installed the neccessary access to the repo you are trying to clone (eg. you can run `git clone ...`).
+
+
+```
+USAGE
+  $ sfdx raven:utils:deploy:branch2org
+
+OPTIONS
+  -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
+  -r, --repository        the repository you wish to deploy from
+  -b, --branch            the branch you wish to deploy
+  -h, --help              show CLI help
+  --json                  format output as json
+  --loglevel              logging level for this command invocation
+
+EXAMPLE
+  $ sfdx raven:utils:deploy:branch2org -r git@github.com:user/some-repo.git -b branchName -u orgName`
+
+OUTPUT
+
+❯ Cloning repo & checking out 'branchName'... done
+❯ Converting from source format to metadata format... done
+❯ Initiating deployment... done
+
+❯ The deployment has been requested with id: 0Af4K00000BHVuAXXX
+
+❯ Deployment InProgress (0/31) Processing Type: CustomObject
+❯ Deployment InProgress (21/31) Processing Type: CustomTab
+❯ Deployment InProgress (30/31) Processing Type: Profile
+❯ Deployment Succeeded
+
+❯ Link to deployment page in Salesforce:
+https://wise-hawk-22uzds-dev-ed.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0Af4K00000BHVuASAX
+...
+```
+
+## sfdx raven:utils:dashboarduser:update
+
+Updates the "Running User" of Dashboards from a given user, to an alternate given user. Useful for mass-updating Dashboards when a user is deactivated.
+
+You will have the following additional options when running -
+
+* A list of Dashboards that will be affected as part of the script will be displayed, with the option to abort if desired.
+* The final step to deploy the changes back to the org can be skipped when prompted, allowing for the manual deploy of the patched metadata files - this might be desirable when running against Production environments with strict deployment practices, or if you maintain Dashboard metadata in source control and want to commit the files.
+
+
+```
+USAGE
+  $ sfdx raven:utils:dashboarduser:update
+
+OPTIONS
+  -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
+  -f, --from              the username of the user which is currently the 'running user' of the Dashboards eg. 'tom.carman@ecorp.com'
+  -t, --to.               the username of the user which you want to make the new 'running user' of the Dashboards eg. 'james.moriarty@ecorp.com'
+  -h, --help               show CLI help
+  --json                  format output as json
+  --loglevel              logging level for this command invocation
+
+EXAMPLE
+  $ sfdx raven:utils:dashboarduser:update -u ecorp-dev --from tom.carman@ecorp.com --to james.moriarty@ecorp.com`
 ```
