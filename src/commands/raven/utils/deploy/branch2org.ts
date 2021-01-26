@@ -9,12 +9,12 @@ const path = require('path');
 const exec = util.promisify(child_process.exec);
 
 
-export default class Branch2Sbox extends SfdxCommand {
+export default class Branch2Org extends SfdxCommand {
 
-  public static description = 'Deploy a branch to a sandbox';
+  public static description = 'Deploy a branch to an org';
 
   public static examples = [
-  `$ sfdx raven:utils:deploy:branch2sbox -r git@github.com:user/some-repo.git -b branchName -u orgName`
+  `$ sfdx raven:utils:deploy:branch2org -r git@github.com:user/some-repo.git -b branchName -u orgName`
   ];
   
   protected static requiresUsername = true;
