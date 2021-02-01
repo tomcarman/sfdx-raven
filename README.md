@@ -110,9 +110,11 @@ USAGE
   $ sfdx raven:utils:deploy:branch2org
 
 OPTIONS
-  -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
-  -r, --repository        the repository you wish to deploy from
-  -b, --branch            the branch you wish to deploy
+  -u, --targetusername    (required) sets a username or alias for the target org. overrides the default target org.
+  -r, --repository        (required) A URL to the repo. It can either be an HTTPs URL (eg. 'https://github.com/user/some-repo.git') and you
+                          will be prompted to enter a username and password, or an SSH URL (eg. 'git@github.com:user/some-repo.git')
+                          which assumes you have SSH keys configured for this repo.
+  -b, --branch            (required) the branch you wish to deploy
   -h, --help              show CLI help
   --json                  format output as json
   --loglevel              logging level for this command invocation
