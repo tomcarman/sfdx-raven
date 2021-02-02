@@ -130,6 +130,8 @@ OPTIONS
                           will be prompted to enter a username and password, or an SSH URL (eg. 'git@github.com:user/some-repo.git')
                           which assumes you have SSH keys configured for this repo.
   -b, --branch            the branch you wish to deploy
+  -c, --checkonly         Validates the deployed metadata and runs all Apex tests, but prevents the 
+                          deployment from being saved to the org.
   -h, --help              show CLI help
   --json                  format output as json
   --loglevel              logging level for this command invocation

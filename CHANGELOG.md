@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.0.8] - 2021-02-02 - Update commands
+ 
+### Added
+* N/A 
+
+### Changed
+* `sfdx raven:utils:deploy:branch2org` command was updated to allow for validate only deployments with use of the -c / --checkonly flag.
+ 
+### Fixed
+* N/A 
+
 ## [0.0.7] - 2021-02-01 - Update commands
  
 ### Added

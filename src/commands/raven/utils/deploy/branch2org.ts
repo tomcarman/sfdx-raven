@@ -33,6 +33,11 @@ export default class Branch2Org extends SfdxCommand {
         char: 'b', 
         description: 'The branch', 
         required: true
+    }),
+    checkonly: flags.boolean({
+        char: 'c', 
+        description: 'Validates the deployed metadata and runs all Apex tests, but prevents the deployment from being saved to the org.', 
+        required: false
     })
   };
 
@@ -66,7 +71,7 @@ export default class Branch2Org extends SfdxCommand {
 
     }
 
-    
+
     // Clone & checkout repo
     cli.action.start(`Cloning \'${this.flags.repository}\' & checking out \'${this.flags.branch}\'`);
 
@@ -101,8 +106,17 @@ export default class Branch2Org extends SfdxCommand {
 
 
     // Deploy to org
-    cli.action.start('Initiating deployment');
-    const deployCommand = `sfdx force:mdapi:deploy -d ${packageDir} -u ${this.org.getUsername()} --json`;
+
+    let deployCommand = '';
+
+    if(this.flags.checkonly) {
+        cli.action.start('Initiating deployment (validation only)');
+        deployCommand = `sfdx force:mdapi:deploy -c -d ${packageDir} -u ${this.org.getUsername()} --json`;
+    } else {
+        cli.action.start('Initiating deployment');
+        deployCommand = `sfdx force:mdapi:deploy -d ${packageDir} -u ${this.org.getUsername()} --json`;
+    }
+
 
     let deploymentId;
 
