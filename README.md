@@ -33,17 +33,17 @@ Note: You'll be prompted that this is not officially code-signed by Salesforce -
   * Only tested on an Ubuntu installation on [WSL](https://docs.microsoft.com/en-us/windows/wsl/about), but should work.
 
 
-## TODO
+## Todo
 The following is a list of commands/features I would like to add to this plugin. Pull requests are welcome!
+* Datamover - *_in progress_*
+  * Move data from one org to another based on a provided SOQL
+  * Typically would be used between prod -> sbox or sbox -> sbox
+  * Allow the user to specify an "all wildcard" SOQL - eg. `SELECT * FROM Account`. This would dynamically query the object metada, create a list of fields, remove any read-only fields (formulas, audit etc), and then build a SOQL with the remaining fields and use that for the data move.
 * Audit Trail inspector
   * Allow you to quickly search audit trail by username, metadata item, most recent 50 etc.
 * Diff two classes accross orgs
   * Inputs: class name, org1, org2
   * Outputs: Open up the class from both orgs in a local difftool
-* Datamover - in progress
-  * Move data from one org to another based on a provided SOQL
-  * Typically would be used between prod -> sbox or sbox -> sbox
-  * Allow the user to specify an "all wildcard" SOQL - eg. `SELECT * FROM Account`. This would dynamically query the object metada, create a list of fields, remove any read-only fields (formulas, audit etc), and then build a SOQL with the remaining fields and use that for the data move.
 * Platform Event listener 
   * Allow the user to specify a platform event, and subscribe to the topic.
 
