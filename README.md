@@ -46,6 +46,8 @@ The following is a list of commands/features I would like to add to this plugin.
   * Outputs: Open up the class from both orgs in a local difftool
 * Platform Event listener 
   * Allow the user to specify a platform event, and subscribe to the topic.
+* Package2ChangeSet
+  * Create a function that allows you to quickly create a ChangeSet or add to an existing ChangeSet based on an inputted package.xml.   
 
 
 ## Commands
