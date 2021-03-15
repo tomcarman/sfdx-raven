@@ -1,8 +1,9 @@
 # sfdx-raven
 
-A plugin for the Salesforce CLI built by Tom Carman.
+A plugin for the Salesforce CLI built by Tom Carman. 
 
-At the moment there is only a few commands, but I am adding more over time.
+Slowly adding commands over time. See [Todo](#Todo) for whats likely coming next.
+
 
 ## Setup
 
@@ -44,8 +45,6 @@ The following is a list of commands/features I would like to add to this plugin.
 * Diff two classes accross orgs
   * Inputs: class name, org1, org2
   * Outputs: Open up the class from both orgs in a local difftool
-* Platform Event listener 
-  * Allow the user to specify a platform event, and subscribe to the topic.
 * Package2ChangeSet
   * Create a function that allows you to quickly create a ChangeSet or add to an existing ChangeSet based on an inputted package.xml.   
 
@@ -169,7 +168,7 @@ Subscribe to a Platform Event and get events published to your cli without using
 ```
 USAGE
   $ sfdx raven:utils:event:listen -e <string> [-r <integer>] [-t <number>] [-u <string>]
-  
+
 OPTIONS
   -e, --event=event         (required) The name of the Platform Event that you want to subscribe with '/event' prefix  eg. /event/My_Event__e
   -r, --replayid=replayid   Optional: The replay id to replay events from eg. 21980378
