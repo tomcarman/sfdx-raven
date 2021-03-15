@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.0.9] - 2021-03-15 - Add commands
  
 ### Added
-* `sfdx raven:utils:event:;isten` command was added. Used to listen to Platform Events.
+* `sfdx raven:utils:event:listen` command was added. Used to listen to Platform Events.
 
 ### Changed
 * Removed some no longer needed dependencies (cometd-nodejs-client)
