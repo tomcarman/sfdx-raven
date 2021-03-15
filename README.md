@@ -55,6 +55,7 @@ The following is a list of commands/features I would like to add to this plugin.
 - [sfdx raven:info:fields](#sfdx-raveninfofields)
 - [sfdx raven:info:recordtypes](#sfdx-raveninforecordtypes)
 - [sfdx raven:utils:deploy:branch2org](#sfdx-ravenutilsdeploybranch2org)
+- [sfdx raven:utils:event:listen](#sfdx-ravenutilseventlisten)
 - [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate)
 
 
@@ -161,6 +162,46 @@ OUTPUT
 https://wise-hawk-22uzds-dev-ed.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0Af4K00000BHVuASAX
 ```
 
+## sfdx raven:utils:event:listen
+
+Subscribe to a Platform Event and get events published to your cli without using the clunky java [EMPConnector](https://github.com/forcedotcom/EMP-Connector)
+
+```
+USAGE
+  $ sfdx raven:utils:event:listen -e <string> [-r <integer>] [-t <number>] [-u <string>]
+  
+OPTIONS
+  -e, --event=event         (required) The name of the Platform Event that you want to subscribe with '/event' prefix  eg. /event/My_Event__e
+  -r, --replayid=replayid   Optional: The replay id to replay events from eg. 21980378
+  -t, --timeout=timeout     Optional: How long to subscribe for before timing out in minutes eg. 10. Default is 3 minutes
+  -u, --targetusername      sets a username or alias for the target org that you wish to deploy to. overrides the default target org.
+  -h, --help                show CLI help
+  --json                    format output as json
+  --loglevel                logging level for this command invocation
+
+EXAMPLES
+  $ sfdx raven:utils:event:listen -u myorg -e /event/My_Event__e
+  $ sfdx raven:utils:event:listen -u myorg -e /event/My_Event__e --replayid 21980378
+  $ sfdx raven:utils:event:listen -u myorg -e /event/My_Event__e --timeout 10
+  $ sfdx raven:utils:event:listen -u myorg -e /event/My_Event__e -r 21980378 -t 10
+
+OUTPUT
+
+❯ 🔌 Connecting to org... done
+❯ 📡 Listening for events...
+
+{
+  "schema": "XdDXhymeO5NOxuhzFpgDJA",
+  "payload": {
+    "Some_Event_Field__c": "Hello World",
+    "CreatedDate": "2021-03-15T19:16:54.929Z",
+  },
+  "event": {
+    "replayId": 21980379
+  }
+}
+```
+
 ## sfdx raven:utils:dashboarduser:update
 
 Updates the "Running User" of Dashboards from a given user, to an alternate given user. Useful for mass-updating Dashboards when a user is deactivated.
@@ -179,7 +220,7 @@ OPTIONS
   -u, --targetusername    sets a username or alias for the target org. overrides the default target org.
   -f, --from              the username of the user which is currently the 'running user' of the Dashboards eg. 'tom.carman@ecorp.com'
   -t, --to.               the username of the user which you want to make the new 'running user' of the Dashboards eg. 'james.moriarty@ecorp.com'
-  -h, --help               show CLI help
+  -h, --help              show CLI help
   --json                  format output as json
   --loglevel              logging level for this command invocation
 
