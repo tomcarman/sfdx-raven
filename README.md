@@ -12,11 +12,16 @@ See further down for full details, usage, examples etc.
 
 * [sfdx raven:info:fields](#sfdx-raveninfofields)
   * Show all field labels, API names & types for a given object
-- [sfdx raven:info:recordtypes](#sfdx-raveninforecordtypes) - Show all RecordType labels, API names & Ids for a given object
-- [sfdx raven:utils:deploy:branch2org](#sfdx-ravenutilsdeploybranch2org) - Deploy a git branch to an org
-- [sfdx raven:utils:diff](#sfdx-ravenutilsdiff) - Diff individual metadata items (class, object etc) between orgs
-- [sfdx raven:utils:event:listen](#sfdx-ravenutilseventlisten) - Listen to platform events from cli
-- [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate) - Change the running user of Dashboards
+* [sfdx raven:info:recordtypes](#sfdx-raveninforecordtypes)
+  * Show all RecordType labels, API names & Ids for a given object
+* [sfdx raven:utils:deploy:branch2org](#sfdx-ravenutilsdeploybranch2org)
+  * Deploy a git branch to an org
+* [sfdx raven:utils:diff](#sfdx-ravenutilsdiff)
+  * Diff individual metadata items (class, object etc) between orgs
+* [sfdx raven:utils:event:listen](#sfdx-ravenutilseventlisten)
+  * Listen to platform events from cli
+* [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate)
+  * Change the running user of Dashboards
 
 
 ## Setup
