@@ -252,10 +252,9 @@ OUTPUT
 👨‍🍳 Preparing diff... done
 ✨ Cleaning up... done
 🌐 Opening with diff2html in browser... done
-
+```
 <img width="795" alt="diff" src="https://user-images.githubusercontent.com/1554713/111902572-057edf80-8a36-11eb-8c45-56c09c290e89.png">
 
-```
 
 ## sfdx raven:utils:event:listen
 
