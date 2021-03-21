@@ -30,14 +30,14 @@ See further down for full details, usage, examples etc.
 
 ## Setup
 
-## Quick Install
+### Quick Install
 Assuming you already have the [SDFX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) installed, just run:
 
 `sfdx plugins:install sfdx-raven`
 
 Note: You'll be prompted that this is not officially code-signed by Salesforce - like any custom plugin. You can just accept this when prompted, or alternatively you can [whitelist it](https://developer.salesforce.com/blogs/2017/10/salesforce-dx-cli-plugin-update.html)
 
-## Install from source
+### Install from source
 1. Install the [SDFX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm)
 2. Clone the repository: `git clone git@github.com:tomcarman/sfdx-raven.git`
 3. Install npm modules: `npm install`
