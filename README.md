@@ -11,13 +11,13 @@ Slowly adding commands over time. See [Todo](#Todo) for whats likely coming next
 See further down for full details, usage, examples etc.
 
 
-#### Info
+#### sfdx:raven:info
 * [sfdx raven:info:fields](#sfdx-raveninfofields)
   * Show all field labels, API names & types for a given object
 * [sfdx raven:info:recordtypes](#sfdx-raveninforecordtypes)
   * Show all RecordType labels, API names & Ids for a given object
 
-#### Utils 
+#### sfdx:raven:utils 
 * [sfdx raven:utils:deploy:branch2org](#sfdx-ravenutilsdeploybranch2org)
   * Deploy a git branch to an org
 * [sfdx raven:utils:diff](#sfdx-ravenutilsdiff)
