@@ -2,7 +2,7 @@
 
 A plugin for the Salesforce CLI built by Tom Carman. 
 
-Mostly just quality of life automations/scripts to make recurring tasks less timeconsuming.
+Mostly just quality of life automations/scripts to make recurring tasks less time consuming.
 
 Slowly adding commands over time. See [Todo](#Todo) for whats likely coming next.
 
