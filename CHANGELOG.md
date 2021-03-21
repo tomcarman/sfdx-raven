@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [0.1.0] - 2021-03-21 - Add commands
+ 
+### Added
+* `sfdx raven:utils:diff` command was added. Used to listen to diff metadata between orgs.
+
+### Changed
+* Cleaned up README
+ 
+### Fixed
+* N/A 
+
 ## [0.0.9] - 2021-03-15 - Add commands
  
 ### Added
