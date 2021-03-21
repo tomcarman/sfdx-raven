@@ -6,6 +6,17 @@ Mostly just quality of life automations/scripts to make recurring tasks less tim
 
 Slowly adding commands over time. See [Todo](#Todo) for whats likely coming next.
 
+## Commands
+
+See further down for full details, usage, examples etc.
+
+- [sfdx raven:info:fields](#sfdx-raveninfofields) - Show all field labels, API names & types for a given object
+- [sfdx raven:info:recordtypes](#sfdx-raveninforecordtypes) - Show all RecordType labels, API names & Ids for a given object
+- [sfdx raven:utils:deploy:branch2org](#sfdx-ravenutilsdeploybranch2org) - Deploy a git branch to an org
+- [sfdx raven:utils:diff](#sfdx-ravenutilsdiff) - Diff individual metadata items (class, object etc) between orgs
+- [sfdx raven:utils:event:listen](#sfdx-ravenutilseventlisten) - Listen to platform events from cli
+- [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate) - Change the running user of Dashboards
+
 
 ## Setup
 
@@ -47,16 +58,6 @@ The following is a list of commands/features I would like to add to this plugin.
   * Allow you to quickly search audit trail by username, metadata item, most recent 50 etc.
 * Package2ChangeSet
   * Create a function that allows you to quickly create a ChangeSet or add to an existing ChangeSet based on an inputted package.xml.   
-
-
-## Commands
-
-- [sfdx raven:info:fields](#sfdx-raveninfofields)
-- [sfdx raven:info:recordtypes](#sfdx-raveninforecordtypes)
-- [sfdx raven:utils:deploy:branch2org](#sfdx-ravenutilsdeploybranch2org)
-- [sfdx raven:utils:diff] (#sfdx-ravenutilsdiff)
-- [sfdx raven:utils:event:listen](#sfdx-ravenutilseventlisten)
-- [sfdx raven:utils:dashboarduser:update](#sfdx-ravenutilsdashboarduserupdate)
 
 
 
