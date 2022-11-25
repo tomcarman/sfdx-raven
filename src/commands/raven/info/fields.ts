@@ -1,7 +1,14 @@
-import { flags, SfdxCommand } from '@salesforce/command';
-import { AnyJson } from '@salesforce/ts-types';
-import { cli } from 'cli-ux';
+// import { flags, SfdxCommand } from '@salesforce/command';
+// import { AnyJson } from '@salesforce/ts-types';
+// import { cli } from 'cli-ux';
 
+import { CliUx } from '@oclif/core';
+import { AnyJson } from '@salesforce/ts-types';
+import { flags, SfdxCommand } from '@salesforce/command';
+
+
+// import {Command, Flags, CliUx} from '@oclif/core'
+// import {AuthInfo, Connection} from '@salesforce/core'
 
 export default class Fields extends SfdxCommand {
 
@@ -26,7 +33,7 @@ export default class Fields extends SfdxCommand {
 
   public async run(): Promise<AnyJson> {
 
-    cli.action.start('Fetching');
+    CliUx.ux.action.start('Fetching');
 
     // Setup
     interface QueryResult {
@@ -45,7 +52,7 @@ export default class Fields extends SfdxCommand {
     const query = `SELECT Label, QualifiedApiName, DataType FROM FieldDefinition WHERE EntityDefinition.QualifiedApiName = '${this.flags.object}' ORDER BY QualifiedApiName`;
     const result = <QueryResult>await conn.query(query);
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     // Return as table
     this.ux.table(result.records, ['Label', 'QualifiedApiName', 'DataType']);
