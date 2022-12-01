@@ -1,14 +1,7 @@
-// import { flags, SfdxCommand } from '@salesforce/command';
-// import { AnyJson } from '@salesforce/ts-types';
-// import { cli } from 'cli-ux';
-
 import { CliUx } from '@oclif/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { flags, SfdxCommand } from '@salesforce/command';
 
-
-// import {Command, Flags, CliUx} from '@oclif/core'
-// import {AuthInfo, Connection} from '@salesforce/core'
 
 export default class Fields extends SfdxCommand {
 
