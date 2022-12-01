@@ -1,6 +1,6 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
-import { cli } from 'cli-ux';
+import { CliUx } from '@oclif/core';
 import simpleGit from 'simple-git';
 import util = require('util');
 import child_process = require('child_process');
@@ -53,14 +53,14 @@ export default class Branch2Org extends SfdxCommand {
         let repositoryBaseUrl = this.flags.repository.replace('https://', '');
 
         this.ux.log(`To access '${repositoryBaseUrl}' via HTTPs, you need to provide credentials`)
-        username = await cli.prompt('Enter username')
+        username = await CliUx.ux.prompt('Enter username')
 
         if(username.includes('@')) {
             this.ux.log('Oops, username shoudln\'t be an email address, try again')
-            username = await cli.prompt('Enter username')   
+            username = await CliUx.ux.prompt('Enter username')   
         }
 
-        let passwordRaw = await cli.prompt('Enter password', {type: 'hide'}) 
+        let passwordRaw = await CliUx.ux.prompt('Enter password', {type: 'hide'}) 
         password = encodeURI(passwordRaw);
 
         repository = `https://${username}:${password}@${repositoryBaseUrl}`;
@@ -73,16 +73,16 @@ export default class Branch2Org extends SfdxCommand {
 
 
     // Clone & checkout repo
-    cli.action.start(`Cloning \'${this.flags.repository}\' & checking out \'${this.flags.branch}\'`);
+    CliUx.ux.action.start(`Cloning \'${this.flags.repository}\' & checking out \'${this.flags.branch}\'`);
 
     const git = simpleGit();
 
     try {
         await git.clone(repository, '.', ['-b', this.flags.branch]);
-        cli.action.stop();
+        CliUx.ux.action.stop();
 
     } catch (e) { 
-        cli.action.stop('Error');
+        CliUx.ux.action.stop('Error');
         this.ux.log(e);
         return;
 
@@ -90,16 +90,16 @@ export default class Branch2Org extends SfdxCommand {
 
 
     // Convert to mdapi format
-    cli.action.start('Converting from source format to metadata format');
+    CliUx.ux.action.start('Converting from source format to metadata format');
     let packageDir = path.resolve('./packageToDeploy');
     const convertCommand = `sfdx force:source:convert --outputdir ${packageDir}`;
 
     try {
         await exec(convertCommand);
-        cli.action.stop();
+        CliUx.ux.action.stop();
 
     } catch (e) {
-        cli.action.stop('Error');
+        CliUx.ux.action.stop('Error');
         this.ux.log(e);
         return;
     }
@@ -110,10 +110,10 @@ export default class Branch2Org extends SfdxCommand {
     let deployCommand = '';
 
     if(this.flags.checkonly) {
-        cli.action.start('Initiating deployment (validation only)');
+        CliUx.ux.action.start('Initiating deployment (validation only)');
         deployCommand = `sfdx force:mdapi:deploy -c -d ${packageDir} -u ${this.org.getUsername()} --json`;
     } else {
-        cli.action.start('Initiating deployment');
+        CliUx.ux.action.start('Initiating deployment');
         deployCommand = `sfdx force:mdapi:deploy -d ${packageDir} -u ${this.org.getUsername()} --json`;
     }
 
@@ -124,13 +124,13 @@ export default class Branch2Org extends SfdxCommand {
 
         let response = await exec(deployCommand);
         let responseJson = JSON.parse(response.stdout);
-        cli.action.stop();
+        CliUx.ux.action.stop();
 
         deploymentId = responseJson.result.id;
         this.ux.log(`\nThe deployment has been requested with id: ${deploymentId}\n`);
 
     } catch (e) {
-        cli.action.stop('Error');
+        CliUx.ux.action.stop('Error');
         this.ux.log(e);
         return;
     }

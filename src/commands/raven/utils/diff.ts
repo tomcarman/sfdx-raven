@@ -1,7 +1,7 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
 import * as fs from 'fs';
-import cli from 'cli-ux';
+import { CliUx } from '@oclif/core';
 import util = require('util');
 import child_process = require('child_process');
 import path = require('path');
@@ -44,7 +44,7 @@ export default class Diff extends SfdxCommand {
 
   public async run(): Promise<AnyJson> {
 
-    cli.action.start(`${emoji.get('card_index_dividers')}  Building package.xml`);
+    CliUx.ux.action.start(`${emoji.get('card_index_dividers')}  Building package.xml`);
 
     // Set up folders, make if they don't exist
     let tempDir = path.resolve('./sfdx-raven-util-diff-temp');
@@ -59,24 +59,24 @@ export default class Diff extends SfdxCommand {
     // Build package.xml
     let packageManifest = `${packageDir}/package.xml`;
     this.buildPackagepackageFile(packageManifest, this.flags.type, this.flags.items);
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     // Get metadata from source and target orgs
     await this.retrieveMetadata(packageManifest, this.flags.source, sourceDir);
     await this.retrieveMetadata(packageManifest, this.flags.target, targetDir);
 
     // Unzip metadata to temporary directory 
-    cli.action.start(`${emoji.get('open_file_folder')} Unzipping metadata`)
+    CliUx.ux.action.start(`${emoji.get('open_file_folder')} Unzipping metadata`)
     try {
         await extract(path.join(sourceDir, '/unpackaged.zip'), { dir: sourceDir })
         await extract(path.join(targetDir, '/unpackaged.zip'), { dir: targetDir })
       } catch (err) {
           this.ux.log(err);
       } 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     // Generate diff and open with diff2html
-    cli.action.start(`${emoji.get('male-cook')} Preparing diff`);
+    CliUx.ux.action.start(`${emoji.get('male-cook')} Preparing diff`);
     
     this.createTemplate(tempDir);
 
@@ -92,33 +92,33 @@ export default class Diff extends SfdxCommand {
     try {
         await exec(diff);
     } catch (err) {
-        cli.action.stop();
+        CliUx.ux.action.stop();
         this.ux.log(err);
         return;
     }
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     // Clean up the temporary files
-    cli.action.start(`${emoji.get('sparkles')} Cleaning up`)
+    CliUx.ux.action.start(`${emoji.get('sparkles')} Cleaning up`)
     try {
         // @ts-ignore
         fs.rmdirSync(tempDir, { recursive: true });
     } catch (err) {
         this.ux.log(err);
     }
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     // Open diff in browser
     if(!this.flags.silent) {
-      cli.action.start(`${emoji.get('globe_with_meridians')} Opening with diff2html in browser`)
+      CliUx.ux.action.start(`${emoji.get('globe_with_meridians')} Opening with diff2html in browser`)
       try {
-        await cli.open(diffFile);
+        await CliUx.ux.open(diffFile);
       } catch (err) {
-        cli.action.stop();
+        CliUx.ux.action.stop();
         this.ux.log(err);
         return;
       }
-      cli.action.stop();
+      CliUx.ux.action.stop();
     }
 
   }
@@ -159,7 +159,7 @@ export default class Diff extends SfdxCommand {
    * @returns 
    */
   private async retrieveMetadata(packageManifest: string, org: string, targetDir: string) {
-    cli.action.start(`${emoji.get('arrow_double_down')} Retrieving from ${org}`);
+    CliUx.ux.action.start(`${emoji.get('arrow_double_down')} Retrieving from ${org}`);
     
     const retrieveCommand = `sfdx force:mdapi:retrieve -k ${packageManifest} -u ${org} -r ${targetDir}`;
 
@@ -170,7 +170,7 @@ export default class Diff extends SfdxCommand {
         return;
     }
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
   }
 

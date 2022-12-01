@@ -1,6 +1,6 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
-import { cli } from 'cli-ux';
+import { CliUx } from '@oclif/core';
 
 export default class Recordtypes extends SfdxCommand {
 
@@ -24,7 +24,7 @@ export default class Recordtypes extends SfdxCommand {
 
   public async run(): Promise<AnyJson> {
 
-    cli.action.start('Fetching');
+    CliUx.ux.action.start('Fetching');
 
     // Setup
     interface QueryResult {
@@ -43,7 +43,7 @@ export default class Recordtypes extends SfdxCommand {
     const query = `SELECT Name, DeveloperName, Id FROM RecordType WHERE SObjectType = '${this.flags.object}'`;
     const result = <QueryResult>await conn.query(query);
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     // Return table of fields
     this.ux.table(result.records, ['Name', 'DeveloperName', 'Id']);

@@ -1,6 +1,6 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
-import cli from 'cli-ux';
+import { CliUx } from '@oclif/core';
 import * as fs from 'fs';
 import util = require('util');
 import child_process = require('child_process');
@@ -70,7 +70,7 @@ export default class Updates extends SfdxCommand {
 
     // Retrieve the users from the org    
     this.ux.log('\n');
-    cli.action.start(`${emoji.get('male-detective')} Retrieving users`);
+    CliUx.ux.action.start(`${emoji.get('male-detective')} Retrieving users`);
 
     const userIdQuery = `SELECT Id, Username, FirstName, LastName FROM User WHERE (Username = \'${fromUsername}\' OR Username = \'${toUsername}\')`
     const users = await conn.query<User>(userIdQuery);
@@ -100,7 +100,7 @@ export default class Updates extends SfdxCommand {
     }
 
     if(usersNotFound) {
-        cli.action.stop();
+        CliUx.ux.action.stop();
         this.ux.log(userErrorMessage);
         this.ux.log('\nAborted');
         return;
@@ -111,17 +111,17 @@ export default class Updates extends SfdxCommand {
     const fromUserRealName = `${userIdMap.get('fromUserId').FirstName} ${userIdMap.get('fromUserId').LastName}`
     const toUserRealName = `${userIdMap.get('toUserId').FirstName} ${userIdMap.get('toUserId').LastName}`
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
 
     /* Retrieve the list of Dashboards to be updated*/
 
-    cli.action.start(`${emoji.get('clipboard')} Generating a list of Dashbords owned by ${fromUserRealName}`);
+    CliUx.ux.action.start(`${emoji.get('clipboard')} Generating a list of Dashbords owned by ${fromUserRealName}`);
 
     const dashboardQuery = `SELECT Id, DeveloperName, Folder.DeveloperName FROM Dashboard WHERE RunningUserId = \'${fromUserId}\'`;
     const dashboards = await conn.query<QueryResult>(dashboardQuery);
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     //Return if no dashboards found
     if(dashboards.totalSize == 0) {
@@ -135,7 +135,7 @@ export default class Updates extends SfdxCommand {
     this.ux.log(`\nThe following Dashboards will have their \'Running User\' changed from ${fromUserRealName} to ${toUserRealName}:\n`);
     this.ux.table(dashboards.records, ['Id', 'Folder.DeveloperName', 'DeveloperName']);
 
-    let confirmUpdate = await cli.confirm('\nDo you want to continue? y/n');
+    let confirmUpdate = await CliUx.ux.confirm('\nDo you want to continue? y/n');
 
     if(!confirmUpdate) {
         this.ux.log('Aborted');
@@ -145,7 +145,7 @@ export default class Updates extends SfdxCommand {
 
     /* Build the package.xml*/
     this.ux.log('\n');
-    cli.action.start(`${emoji.get('card_index_dividers')}  Generating a package.xml for the Dashbords owned by ${fromUserRealName}`);
+    CliUx.ux.action.start(`${emoji.get('card_index_dividers')}  Generating a package.xml for the Dashbords owned by ${fromUserRealName}`);
 
     // Define name of temporary folder and package.xml
     let packageDir = path.resolve('./temp');
@@ -173,12 +173,12 @@ export default class Updates extends SfdxCommand {
     packageFile.write('\n</Package>');
     packageFile.close();
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
 
     /* Retrieve Dashboad metadata */
 
-    cli.action.start(`${emoji.get('arrow_double_down')} Retrieving Dashboard metadata`);
+    CliUx.ux.action.start(`${emoji.get('arrow_double_down')} Retrieving Dashboard metadata`);
     const retrieveCommand = `sfdx force:mdapi:retrieve -k ${packageDir}/${packageManifest} -u ${this.org.getUsername()} -r ${packageDir}`;
 
     try {
@@ -188,11 +188,11 @@ export default class Updates extends SfdxCommand {
         return;
     }
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
 
     // Unzip metadata to temporary directory 
-    cli.action.start(`${emoji.get('open_file_folder')} Unzipping metadata`)
+    CliUx.ux.action.start(`${emoji.get('open_file_folder')} Unzipping metadata`)
 
     try {
         await extract(path.join(packageDir, '/unpackaged.zip'), { dir: packageDir })
@@ -200,12 +200,12 @@ export default class Updates extends SfdxCommand {
           this.ux.log(err);
       }
     
-    cli.action.stop();
+    CliUx.ux.action.stop();
     
 
     /* Patch the Dashboard metadata files, to replace Running User from the old user to the new one */
 
-    cli.action.start(`${emoji.get('bar_chart')} Patching the Dashboard metadata`)
+    CliUx.ux.action.start(`${emoji.get('bar_chart')} Patching the Dashboard metadata`)
 
     // Walk through the files (using async iterator)
     async function* walk(packageDir) {
@@ -247,10 +247,10 @@ export default class Updates extends SfdxCommand {
         silent: true,
       });
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     // Confirm that the user wants to deploy
-    let confirmDeploy = await cli.confirm(`\nDo you want to deploy the patched Dashboards back to the org?
+    let confirmDeploy = await CliUx.ux.confirm(`\nDo you want to deploy the patched Dashboards back to the org?
 If you choose no, the patched files will still be in a folder called /temp which you can manually deploy y/n`);
 
     if(!confirmDeploy) {
@@ -262,24 +262,24 @@ If you choose no, the patched files will still be in a folder called /temp which
     /* Deploy the patched Dashboard metadata back to the org */
     
     this.ux.log('\n');
-    cli.action.start(`${emoji.get('arrow_double_up')} Deploying the Dashboard metadata`)
+    CliUx.ux.action.start(`${emoji.get('arrow_double_up')} Deploying the Dashboard metadata`)
     const deployPath = path.join(packageDir, 'unpackaged');
     const deployCommand = `sfdx force:mdapi:deploy -d ${deployPath} -u ${this.org.getUsername()}`;
 
     try {
         await exec(deployCommand);
     } catch (err) {
-        cli.action.stop();
+        CliUx.ux.action.stop();
         this.ux.log(err);
         return;
     }
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
 
     /* Clean up the temporary files */
 
-    cli.action.start(`${emoji.get('sparkles')} Cleaning up`)
+    CliUx.ux.action.start(`${emoji.get('sparkles')} Cleaning up`)
     
     try {
         // @ts-ignore
@@ -288,7 +288,7 @@ If you choose no, the patched files will still be in a folder called /temp which
         this.ux.log(err);
     }
 
-    cli.action.stop();
+    CliUx.ux.action.stop();
 
     this.ux.log(`${emoji.get('white_check_mark')} Deployment Successful`);
   }
