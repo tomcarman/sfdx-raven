@@ -2,7 +2,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { StreamingClient } from '@salesforce/core';
 import { Duration } from '@salesforce/kit/lib';
 import { AnyJson, JsonMap } from '@salesforce/ts-types';
-import { cli } from 'cli-ux';
+import { CliUx } from '@oclif/core';
 const emoji = require('node-emoji');
 
 export default class Listen extends SfdxCommand {
@@ -41,7 +41,7 @@ export default class Listen extends SfdxCommand {
 
         // Set up stream client and stream processor
 
-        cli.action.start(`${emoji.get('electric_plug')} Connecting to org`);
+        CliUx.ux.action.start(`${emoji.get('electric_plug')} Connecting to org`);
 
         const streamProcessor = (message: JsonMap) => {
             this.ux.log('\n'+JSON.stringify(message,null,2));
@@ -61,7 +61,7 @@ export default class Listen extends SfdxCommand {
         const asyncStatusClient = await StreamingClient.create(options);
         await asyncStatusClient.handshake();
     
-        cli.action.stop();
+        CliUx.ux.action.stop();
 
         // Set the relay id if one has been supplied
 
